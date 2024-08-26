@@ -7,41 +7,14 @@ jobs:
     runs-on: ubuntu-latest
     name: Capture Screenshot, Audio, and Screen Activity
 
-    on: [push]
-
-    jobs:
-      capture:
-        runs-on: ubuntu-latest
-
-        steps:
-          - uses: actions/checkout@v2
-
-          - name: Install dependencies
-            run: |
-              sudo apt-get update
-              sudo apt-get install -y xvfb firefox pulseaudio ffmpeg imagemagick python3-pip
-              pip3 install numpy scipy pyautogui
-
-          - name: Run capture script
-            run: |
-              chmod +x ./capture.sh
-              ./capture.sh
-
-          - name: Upload artifacts
-            uses: actions/upload-artifact@v2
-            with:
-              name: capture-output
-              path: |
-                screenshot.png
-                output.mp4
-                generated_audio.wav
     steps:
       - uses: actions/checkout@v2
 
       - name: Install dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y xvfb firefox pulseaudio ffmpeg imagemagick
+          sudo apt-get install -y xvfb firefox pulseaudio ffmpeg imagemagick python3-pip
+          pip3 install numpy scipy pyautogui
 
       - name: Run capture script
         run: |
@@ -55,3 +28,4 @@ jobs:
           path: |
             screenshot.png
             output.mp4
+            generated_audio.wav
